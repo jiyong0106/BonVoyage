@@ -64,7 +64,34 @@ export interface Dashboard {
   userId: number;
 }
 
+<<<<<<< HEAD
 export interface UserChangePasswordProps{
+=======
+// 초대된 대시보드
+export interface Invitation {
+  id: number;
+  inviter: {
+    nickname: string;
+    email: string;
+    id: number;
+  };
+  teamId: string;
+  dashboard: {
+    title: string;
+    id: number;
+  };
+  invitee: {
+    nickname: string;
+    email: string;
+    id: number;
+  };
+  inviteAccepted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ChangePasswordProps {
+>>>>>>> 26bc8ddae10ec71afe9c9379b1dfb6b177d80423
   password: string;
   newPassword: string;
 }
@@ -74,8 +101,11 @@ export interface UserChangeAccountProps{
   profileImageUrl: string;
 }
 
+<<<<<<< HEAD
 export interface passwordFromProps {
   password: string;
   newPassword: string;
   newPasswordConfirm: string;
 }
+=======
+>>>>>>> 26bc8ddae10ec71afe9c9379b1dfb6b177d80423
