@@ -1,10 +1,9 @@
 import styles from './profileForm.module.scss';
 import ImageInput from '@/components/molecules/imageInput/ImageInput';
 import Button from '@/components/atoms/buttons/button';
-import { useState } from 'react';
-import { userChangeAccount } from '@/api/accountApi/accountApi';
-import { useContext } from 'react';
+import { useState,useContext } from 'react';
 import { userContext } from '@/pages/mypage/index';
+import { userChangeAccount } from '@/api/accountApi/accountApi';
 import CommonInput from '@/components/atoms/input/common/CommonInput';
 import { useForm } from 'react-hook-form';
 import {UserChangeAccountProps} from '@/@types/type';
@@ -26,7 +25,6 @@ const ProfileForm = () => {
     } catch (error) {
       console.error('닉네임 또는 프로필 이미지 변경 실패:', error);
     }
-    console.log('data:', data);
   };
 
   return (
