@@ -28,11 +28,7 @@ const PasswordChangeForm = () => {
     if (res.status === 204) {
       setIsModal(true);
       setModalMessage('비밀번호가 변경되었습니다.');
-      reset({
-        password: '',
-        newPassword: '',
-        newPasswordConfirm: '',
-      });
+      reset();
       return;
     }
     setIsModal(true);
@@ -89,31 +85,31 @@ const PasswordChangeForm = () => {
             },
           }}
         />
-      </form>
-      <div className={styles.ButtonContainer}>
-        <Button
-          name="변경"
-          type="modal"
-          color="blue"
-          onClick={handleSubmit(onSubmit)}
-          disabled={!watchFields.every((field) => field)}
-        />
-        {modal && (
-          <BaseModal closeModal={closeModal}>
-            <div className={styles.modalContainer}>
-              <p>{modalMessage}</p>
-              <div className={styles.modalBtn}>
-                <Button
-                  name="확인"
-                  type="modal"
-                  color="blue"
-                  onClick={closeModal}
-                />
+        <div className={styles.ButtonContainer}>
+          <Button
+            name="변경"
+            type="modal"
+            color="blue"
+            onClick={handleSubmit(onSubmit)}
+            disabled={!watchFields.every((field) => field)}
+          />
+          {modal && (
+            <BaseModal closeModal={closeModal}>
+              <div className={styles.modalContainer}>
+                <p>{modalMessage}</p>
+                <div className={styles.modalBtn}>
+                  <Button
+                    name="확인"
+                    type="modal"
+                    color="blue"
+                    onClick={closeModal}
+                  />
+                </div>
               </div>
-            </div>
-          </BaseModal>
-        )}
-      </div>
+            </BaseModal>
+          )}
+        </div>
+      </form>
     </div>
   );
 };
