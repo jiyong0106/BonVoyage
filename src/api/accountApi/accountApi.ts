@@ -31,7 +31,10 @@ export const userChangePassword = async ({
 
 //비밀번호 변경 api
 
-export const userChangeAccount = async ({nickname, profileImageUrl}: UserChangeAccountProps) => {
+export const userChangeAccount = async ({
+  nickname,
+  profileImageUrl,
+}: UserChangeAccountProps) => {
   try {
     const requestData = {};
     if (nickname) {
