@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { userContext } from '@/pages/_app';
 import Image from 'next/image';
+import DefaultProfileImage from '@/components/atoms/defaultProfileImage';
 
 const cn = classNames.bind(styles);
 
@@ -20,13 +21,17 @@ const ProfileDown = () => {
 
   return (
     <div className={cn('nicknameMenu')}>
-      <Image
-        src={userInfo.profileImageUrl}
-        alt="userImage"
-        width={80}
-        height={80}
-        className={cn('profileImage')}
-      />
+      {userInfo.profileImageUrl ? (
+        <Image
+          src={userInfo.profileImageUrl}
+          alt="userImage"
+          width={80}
+          height={80}
+          className={cn('profileImage')}
+        />
+      ) : (
+        <DefaultProfileImage/>
+      )}
       <span>{userInfo.nickname}</span>
       <span>{userInfo.email}</span>
       <div className={cn('btnContainer')}>

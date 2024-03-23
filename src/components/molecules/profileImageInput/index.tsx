@@ -9,7 +9,11 @@ interface Props {
   onImageSelected: (imageUrl: string) => void;
   initialImageUrl: string;
 }
-export default function ProfileImageInput({ size, onImageSelected, initialImageUrl }: Props) {
+export default function ProfileImageInput({
+  size,
+  onImageSelected,
+  initialImageUrl,
+}: Props) {
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const imageInput = useRef<HTMLInputElement>(null);
 
@@ -45,11 +49,20 @@ export default function ProfileImageInput({ size, onImageSelected, initialImageU
       />
       <button className={cn('imageBox', size)} onClick={onClickImageBox}>
         <div
-          className={cn({ initialImageUrl: !imageUrl }, { uploadImage: imageUrl })}
+          className={cn(
+            { initialImageUrl: !imageUrl },
+            { uploadImage: imageUrl },
+          )}
         >
           <Image
             layout="fill"
-            src={imageUrl ? imageUrl : initialImageUrl}
+            src={
+              imageUrl
+                ? imageUrl
+                : initialImageUrl
+                  ? initialImageUrl
+                  : '/assets/icon/plusIcon.svg'
+            }
             alt={imageUrl ? '불러온 이미지' : '+ 아이콘'}
             priority={true}
             objectFit="cover"
