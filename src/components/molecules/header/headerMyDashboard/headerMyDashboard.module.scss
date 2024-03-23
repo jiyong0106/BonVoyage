@@ -17,7 +17,7 @@
 }
 
 .boardTitle {
-  padding-left: 325px;
+  padding-left: 305px;
   font-size: 2rem;
   font-weight: 700;
   color: var(--black20);
@@ -44,9 +44,10 @@
     justify-content: flex-end;
   }
 
-  .dashboardHomeHeader {
+  .dashboardHomeHeader{
     justify-content: space-between;
     padding-left: 172px;
+
   }
 }
 
