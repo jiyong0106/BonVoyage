@@ -20,13 +20,15 @@ const ProfileDown = () => {
 
   return (
     <div className={cn('nicknameMenu')}>
-      <Image
-        src={userInfo.profileImageUrl}
-        alt="userImage"
-        width={80}
-        height={80}
-        className={cn('profileImage')}
-      />
+      {userInfo.profileImageUrl && (
+        <Image
+          src={userInfo.profileImageUrl}
+          alt="userImage"
+          width={80}
+          height={80}
+          className={cn('profileImage')}
+        />
+      )}
       <span>{userInfo.nickname}</span>
       <span>{userInfo.email}</span>
       <div className={cn('btnContainer')}>

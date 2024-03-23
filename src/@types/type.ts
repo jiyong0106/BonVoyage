@@ -160,7 +160,7 @@ export interface UserContextProps {
     id: number;
     email: string;
     nickname: string;
-    profileImageUrl: string;
+    profileImageUrl?: string;
     createdAt: string;
     updatedAt: string;
   };
