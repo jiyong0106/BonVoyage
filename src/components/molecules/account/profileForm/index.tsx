@@ -1,7 +1,7 @@
 import styles from './profileForm.module.scss';
 import ProfileImageInput from '@/components/molecules/profileImageInput/index';
 import Button from '@/components/atoms/buttons/button';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { userContext } from '@/pages/_app';
 import { userChangeAccount } from '@/api/accountApi/accountApi';
 import CommonInput from '@/components/atoms/input/common/CommonInput';
@@ -10,9 +10,10 @@ import { UserChangeAccountProps, UserContextProps } from '@/@types/type';
 import BaseModal from '@/components/atoms/baseModal/BaseModal';
 
 const ProfileForm = () => {
-  const { handleSubmit, register, watch } = useForm<UserChangeAccountProps>({
-    mode: 'all',
-  });
+  const { handleSubmit, register, watch, setValue } =
+    useForm<UserChangeAccountProps>({
+      mode: 'all',
+    });
 
   const userInfo = useContext(userContext);
   const userData = userInfo.userInfo;
@@ -52,10 +53,18 @@ const ProfileForm = () => {
     setModal({ isModalOpen: false, modalMessage: '' });
   };
 
+  useEffect(() => {
+    setValue('nickname', userData.nickname);
+  }, [userData.nickname]);
+
   return (
     <div className={styles.container}>
       <h1>프로필</h1>
-      <ProfileImageInput size="big" onImageSelected={setProfileImage} />
+      <ProfileImageInput
+        size="big"
+        onImageSelected={setProfileImage}
+        initialImageUrl={userData.profileImageUrl}
+      />
       <form className={styles.inputContainer} onSubmit={handleSubmit(onSubmit)}>
         <CommonInput
           label="이메일"
