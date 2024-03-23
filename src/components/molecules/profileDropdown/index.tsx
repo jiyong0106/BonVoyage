@@ -3,14 +3,13 @@ import classNames from 'classnames/bind';
 import Link from 'next/link';
 import styles from './profileDropdown.module.scss';
 import { useRouter } from 'next/router';
-import { ProfileDownProps } from '@/@types/type';
 import { useContext } from 'react';
 import { userContext } from '@/pages/_app';
 import Image from 'next/image';
 
 const cn = classNames.bind(styles);
 
-const ProfileDown = ({ onBlur }: ProfileDownProps) => {
+const ProfileDown = () => {
   const { userInfo } = useContext(userContext);
   const router = useRouter();
   const handleLogout = () => {
@@ -20,7 +19,7 @@ const ProfileDown = ({ onBlur }: ProfileDownProps) => {
   };
 
   return (
-    <div className={cn('nicknameMenu')} onBlur={onBlur}>
+    <div className={cn('nicknameMenu')}>
       <Image
         src={userInfo.profileImageUrl}
         alt="userImage"
@@ -30,10 +29,10 @@ const ProfileDown = ({ onBlur }: ProfileDownProps) => {
       />
       <span>{userInfo.nickname}</span>
       <span>{userInfo.email}</span>
-      <div className={cn("btnContainer")}>
-        <button className={cn('menuItem')}>
-          <Link href="/myPage">MyPage</Link>
-        </button>
+      <div className={cn('btnContainer')}>
+        <Link href="/myPage">
+          <button className={cn('menuItem')}>MyPage</button>
+        </Link>
         <button className={cn('menuItem', 'logout')} onClick={handleLogout}>
           Logout
         </button>

@@ -66,13 +66,11 @@ export default function HeaderMyDashboard({
           <button
             className={styles['userProfile']}
             onClick={() => setIsOpenNicknameMenu((preState) => !preState)}
-            onBlur={() => setTimeout(() => setIsOpenNicknameMenu(false), 100)}
+            onBlur={() => setTimeout(() => setIsOpenNicknameMenu(false), 300)}
           >
             <ProfileIcon name={name} profile={userInfo.profileImageUrl} />
             <span className={styles['name']}>{userInfo.nickname}</span>
-            {isOpenNicknameMenu && (
-              <ProfileDown onBlur={() => setIsOpenNicknameMenu(false)} />
-            )}
+            {isOpenNicknameMenu && <ProfileDown />}
           </button>
         </div>
       </div>
