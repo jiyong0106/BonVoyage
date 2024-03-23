@@ -43,12 +43,6 @@ const ProfileForm = () => {
     }
   };
 
-  const watchFiled = watch(['nickname'], {
-    nickname: '',
-  });
-
-  const isButtonDisabled = !profileImage && !watchFiled[0];
-
   const closeModal = () => {
     setModal({ isModalOpen: false, modalMessage: '' });
   };
@@ -89,7 +83,6 @@ const ProfileForm = () => {
             type="modal"
             color="blue"
             onClick={handleSubmit(onSubmit)}
-            disabled={isButtonDisabled}
           />
           {modal.isModalOpen && (
             <BaseModal closeModal={closeModal}>
