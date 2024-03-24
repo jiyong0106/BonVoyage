@@ -27,7 +27,6 @@ export default function InviteList({ dashboardId }: Props) {
     try {
       const memberData = await getInvitedMemberList(dashboardId);
       setMembers(memberData.invitations);
-      console.log(memberData.invitations);
     } catch (error) {
       console.error('Error fetching members:', error);
     }
@@ -41,11 +40,9 @@ export default function InviteList({ dashboardId }: Props) {
       await deleteInvitation(dashboardId, invitationId);
       fetchMembers();
     } catch (error) {
-      console.log(dashboardId);
       console.error('delete error:', error);
     }
   }
-  console.log(members);
 
   const closeModal = () => {
     setIsModalOpen(false);
