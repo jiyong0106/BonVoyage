@@ -20,6 +20,13 @@ interface Card {
   };
 }
 
+const colors: Array<'orange' | 'pink' | 'blue' | 'green'> = [
+  'orange',
+  'green',
+  'pink',
+  'blue',
+];
+
 interface CardProps {
   columnId: number;
   columnTitle: string;
@@ -30,6 +37,7 @@ export default function Card({
   columnId,
   columnTitle,
   handleCardsData,
+  columns,
 }: CardProps) {
   const [cards, setCards] = useState<Card[]>([]);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
@@ -87,9 +95,13 @@ export default function Card({
           <div className={styles['infoArea']}>
             <span className={styles['cardTitle']}>{card.title}</span>
             <div className={styles['tagDateArea']}>
-              <div className={styles['tagArea']}>
-                <ChipTagWithoutX tag={card.tags.join(' ')} color="pink" />
-              </div>
+              {card.tags && (
+                <div className={styles['tagArea']}>
+                  {card.tags.map((tag, index) => (
+                    <ChipTagWithoutX tag={tag} color={colors[index % 4]} />
+                  ))}
+                </div>
+              )}
 
               <div className={styles['dateProfileArea']}>
                 <div className={styles['dateArea']}>
@@ -119,6 +131,7 @@ export default function Card({
           cardId={clickedCardId}
           columnTitle={columnTitle}
           getCards={getCards}
+          columns={columns}
         />
       )}
     </div>
