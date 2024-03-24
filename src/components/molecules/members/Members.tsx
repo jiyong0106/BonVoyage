@@ -1,23 +1,13 @@
-import ProfileIcon from '@/components/atoms/profileIcon/ProfileIcon';
-import styles from './members.module.scss';
-import PagenationBtn from '@/components/atoms/buttons/pagenationBtn';
+import { ID, Member } from '@/@types/type';
+import { deleteMember, getMemberList } from '@/api/members/memberApi';
 import Button from '@/components/atoms/buttons/button';
+import PagenationBtn from '@/components/atoms/buttons/pagenationBtn';
+import ProfileIcon from '@/components/atoms/profileIcon/ProfileIcon';
 import { useEffect, useState } from 'react';
-import { deleteMember, getMember } from '@/api/members/memberApi';
-
-type Member = {
-  createdAt: string;
-  email: string;
-  id: number;
-  isOwner: boolean;
-  nickname: string;
-  profileImageUrl: string;
-  updatedAt: string;
-  userId: number;
-};
+import styles from './members.module.scss';
 
 type Props = {
-  dashboardId: number;
+  dashboardId: ID;
 };
 
 export default function Members({ dashboardId }: Props) {
@@ -26,7 +16,7 @@ export default function Members({ dashboardId }: Props) {
   useEffect(() => {
     async function fetchMembers() {
       try {
-        const memberData = await getMember(dashboardId);
+        const memberData = await getMemberList(dashboardId);
         setMembers(memberData.members);
       } catch (error) {
         console.error('Error fetching members:', error);
@@ -65,7 +55,7 @@ export default function Members({ dashboardId }: Props) {
             <Button
               type="delete"
               name="삭제"
-              onClick={() => onClickDelete(member.userId)}
+              onClick={() => onClickDelete(member.id)}
             />
           </div>
         ))}

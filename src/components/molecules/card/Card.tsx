@@ -56,7 +56,7 @@ export default function Card({
     if (columnId !== undefined) {
       getCards();
     }
-  }, [columnId]);
+  }, [columnId, cards]);
 
   const handleCardClick = (cardId: number) => {
     setClickedCardId(cardId);
@@ -76,12 +76,10 @@ export default function Card({
           onClick={() => handleCardClick(card.id)}
         >
           {card.imageUrl && (
-            <Image
+            <img
               className={styles['cardImage']}
               src={card.imageUrl}
               alt="Card Image"
-              width={300}
-              height={200}
             />
           )}
           <div className={styles['infoArea']}>
@@ -102,9 +100,14 @@ export default function Card({
                     {format(card.createdAt, 'yyyy-MM-dd HH:mm')}
                   </span>
                 </div>
-                <Image
+                <img
                   className={styles['userProfile']}
-                  src={card.assignee?.profileImageUrl}
+                  width={22}
+                  height={22}
+                  src={
+                    card.assignee?.profileImageUrl ||
+                    '/assets/image/testProfile.png'
+                  }
                   alt="userProfile"
                 />
               </div>

@@ -3,9 +3,12 @@ import {
   ChangeEventHandler,
   ForwardedRef,
   HTMLInputTypeAttribute,
+  InputHTMLAttributes,
   ReactNode,
 } from 'react';
 import { ChangeHandler } from 'react-hook-form';
+
+export type ID = number | string;
 
 export interface ButtonProps {
   name?: string;
@@ -40,6 +43,7 @@ export interface MemberProfile {
   id: number;
   nickname: string;
   profileImageUrl: string;
+  userId: number;
 }
 
 export interface MyDashboardProps extends ButtonProps {
@@ -121,6 +125,7 @@ export interface AuthResponse extends ErrorResponse {
 }
 
 export interface Card {
+  id: number;
   assigneeUserId: number;
   dashboardId: number;
   columnId: number;

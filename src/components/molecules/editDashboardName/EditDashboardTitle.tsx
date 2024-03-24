@@ -1,26 +1,38 @@
-import Link from 'next/link';
-import styles from './editDashboardTitle.module.scss';
-import Button from '@/components/atoms/buttons/button';
-import ColorPalette from '../colorPalette/ColorPalette';
-import { useEffect, useState } from 'react';
-import { COLOR_LIST, COLOR_NAMES } from '@/styles/colorList';
+import { Dashboard, ID } from '@/@types/type';
 import axios from '@/api/axios';
+import { changeDashboardInfo } from '@/api/dashboardInfoApi/dashboardInfoApi';
+import Button from '@/components/atoms/buttons/button';
+import { COLOR_LIST, COLOR_NAMES } from '@/styles/colorList';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import ColorPalette from '../colorPalette/ColorPalette';
+import styles from './editDashboardTitle.module.scss';
 
 export default function EditDashboardTitle() {
   const router = useRouter();
-  const { id } = router.query;
+  const { id } = router.query as { id: ID };
 
-  const [dashboardInfo, setDashboardInfo] = useState();
+  const [dashboardInfo, setDashboardInfo] = useState<Dashboard>({
+    id: 0,
+    title: '',
+    color: '',
+    createdAt: '',
+    updatedAt: '',
+    createdByMe: true,
+    userId: 0,
+  });
+
+  const [inputTitle, setInputTitle] = useState('');
 
   const onClickPaletteColor = (color: string) => {
-    setDashboardInfo((preData) => ({
-      ...preData,
+    setDashboardInfo((prevData) => ({
+      ...prevData,
+
       color: COLOR_LIST[color],
     }));
   };
 
-  async function getDashboard(targetId: string) {
+  async function getDashboard(targetId: ID) {
     const res = await axios.get(`/dashboards/${targetId}`);
     const nextDashboard = res.data;
     setDashboardInfo(nextDashboard);
@@ -32,6 +44,22 @@ export default function EditDashboardTitle() {
   }, [id]);
 
   if (!dashboardInfo) return null;
+  console.log(dashboardInfo);
+
+  const onSubmit = async () => {
+    try {
+      await changeDashboardInfo(
+        {
+          title: inputTitle,
+          color: dashboardInfo.color,
+        },
+        id,
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error('대시보드 정보 수정 실패:', error);
+    }
+  };
 
   return (
     <div className={styles['container']}>
@@ -40,13 +68,17 @@ export default function EditDashboardTitle() {
         <ColorPalette
           colorList={COLOR_LIST}
           colorNameList={COLOR_NAMES}
-          // onClickPaletteColor={onClickPaletteColor}
+          onClickPaletteColor={onClickPaletteColor}
         />
       </div>
       <div className={styles['changeTitle']}>
         <span>대시보드 이름</span>
-        <input placeholder="뉴프로젝트" />
-        <Button name="변경" type="modal" color="blue" />
+        <input
+          placeholder="대시보드"
+          value={inputTitle}
+          onChange={(e) => setInputTitle(e.target.value)}
+        />
+        <Button name="변경" type="modal" color="blue" onClick={onSubmit} />
       </div>
     </div>
   );
