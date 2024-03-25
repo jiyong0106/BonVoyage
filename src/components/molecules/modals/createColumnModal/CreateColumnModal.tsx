@@ -22,7 +22,7 @@ export default function CreateColumnModal({ onClose, getColumns }: ModalProps) {
     try {
       const columnData = {
         title: columnName,
-        dashboardId: dashboard?.id,
+        dashboardId: dashboard,
       };
       const res = await instance.post('/columns', columnData, {
         headers: {
