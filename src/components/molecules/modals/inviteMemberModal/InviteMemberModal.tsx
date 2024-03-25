@@ -27,7 +27,7 @@ export default function InviteMemberModal({
         email: email,
       };
       const res = await instance.post(
-        `/dashboards/${dashboard?.id}/invitations`,
+        `/dashboards/${dashboard}/invitations`,
         inviteData,
         {
           headers: {
