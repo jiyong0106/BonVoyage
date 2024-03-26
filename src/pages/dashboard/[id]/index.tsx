@@ -5,10 +5,11 @@ import SideBar from '@/components/atoms/sideBar/SideBar';
 import CardSection from '@/components/molecules/cardSection/CardSection';
 import HeaderMyDashboard from '@/components/molecules/header/headerMyDashboard/HeaderMyDashboard';
 import CreateColumnModal from '@/components/molecules/modals/createColumnModal/CreateColumnModal';
-import { DashboardProvider } from '@/hooks/contexts';
+import { CardListProvider, DashboardProvider } from '@/hooks/contexts';
 import styles from '@/styles/dashboard.module.scss';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { columnContext } from './../../../hooks/contexts';
 
 export default function DashboardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,8 +64,9 @@ export default function DashboardPage() {
         <HeaderMyDashboard isDashboard={true} />
         <SideBar />
         <section className={styles['section']}>
-          {/* <CardSection dashboardId={id} /> */}
-          <CardSection columns={columns} getColumns={getColumns} />
+          <columnContext.Provider value={[columns, setColumns]}>
+            <CardSection getColumns={getColumns} />
+          </columnContext.Provider>
           <div className={styles['newColumnArea']}>
             <EventDashboardBtn
               onClick={handleaddColumnButtonClick}

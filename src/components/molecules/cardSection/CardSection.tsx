@@ -1,24 +1,19 @@
 import { Column } from '@/@types/type';
 import ColumnComponent from '@/components/atoms/column/ColumnComponent';
+import { CardListProvider, useColumnListState } from '@/hooks/contexts';
 import { useState } from 'react';
 import CreateCardModal from '../modals/createCardModal/CreateCardModal';
 import EditColumnModal from '../modals/editColumnModal/EditColumnModal';
 import styles from './cardSection.module.scss';
 
 interface CardSectionProps {
-  columns: Column[];
   getColumns: () => void;
 }
 
-export default function CardSection({ columns, getColumns }: CardSectionProps) {
-  const [isCreateCardModalOpen, setIsCreateCardModalOpen] = useState(false);
+export default function CardSection({ getColumns }: CardSectionProps) {
+  const [columns] = useColumnListState();
   const [isEditColumnModalOpen, setIsEditColumnModalOpen] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState<Column | null>(null);
-
-  const handleAddCardButtonClick = (column: Column) => {
-    setSelectedColumn(column);
-    setIsCreateCardModalOpen(true);
-  };
 
   const handleSettingButtonClick = (column: Column) => {
     setSelectedColumn(column);
@@ -27,24 +22,19 @@ export default function CardSection({ columns, getColumns }: CardSectionProps) {
 
   const closeModal = () => {
     setSelectedColumn(null);
-    setIsCreateCardModalOpen(false);
     setIsEditColumnModalOpen(false);
   };
 
   return (
     <div className={styles['cardSection']}>
       {columns?.map((column) => (
-        <ColumnComponent
-          key={column.id}
-          column={column}
-          columns={columns}
-          handleSettingButtonClick={handleSettingButtonClick}
-          handleAddCardButtonClick={handleAddCardButtonClick}
-        />
+        <CardListProvider initialValue={[]} key={column.id}>
+          <ColumnComponent
+            column={column}
+            handleSettingButtonClick={handleSettingButtonClick}
+          />
+        </CardListProvider>
       ))}
-      {isCreateCardModalOpen && (
-        <CreateCardModal column={selectedColumn!} onClose={closeModal} />
-      )}
       {isEditColumnModalOpen && selectedColumn && (
         <EditColumnModal
           onClose={closeModal}

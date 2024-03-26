@@ -2,16 +2,16 @@ import { CardDetail } from '@/@types/type';
 import instance from '@/api/axios';
 import ChipTagWithoutX from '@/components/atoms/chipTag/ChipTagWithoutX';
 import CreateDoItYourselfComment from '@/components/atoms/input/commentInput/CreateDoItYourselfComment';
+import { useCardState } from '@/hooks/contexts';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import CardDetailKebap from '../../cardDetailKebap/CardDetailKebap';
-import ChipProgress from '../../chipProgress/ChipProgress';
+import ChipProgress from '../../ChipProgress/ChipProgress';
 import styles from './cardDetailModal.module.scss';
 
 interface ModalProps {
   onClose: () => void;
-  cardId?: number;
   columnTitle: string;
   getCards: () => void;
 }
@@ -34,16 +34,16 @@ const colors: Array<'orange' | 'pink' | 'blue' | 'green'> = [
 
 export default function CardDetailModal({
   onClose,
-  cardId,
-  columns,
   columnTitle,
   getCards,
 }: ModalProps) {
-  const [cardDetail, setCardDetail] = useState<CardDetail>();
+  const [cardDetail, setCardDetail] = useCardState();
   const [commentList, setCommentList] = useState<Comment[]>([]);
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [editedCommentContent, setEditedCommentContent] = useState<string>('');
   const editCommentInputRef = useRef<HTMLTextAreaElement>(null);
+
+  const cardId = cardDetail?.id;
 
   async function getCardDetail() {
     try {
@@ -144,8 +144,6 @@ export default function CardDetailModal({
               cardId={cardId}
               getCards={getCards}
               cardData={cardDetail}
-              columns={columns}
-              columnTitle={columnTitle}
             />
             <img
               className={styles['closeIcon']}
@@ -184,11 +182,11 @@ export default function CardDetailModal({
           <div className={styles['contentArea']}>
             <div className={styles['tagArea']}>
               <ChipProgress column={columnTitle} />
-              <div className={styles['line']}></div>
+              <div className={styles['line']} />
               <div className={styles['tag']}>
                 {cardDetail.tags.map((tag, index) => (
                   <ChipTagWithoutX
-                    key={tag}
+                    key={index}
                     tag={tag}
                     color={colors[index % 4]}
                   />
@@ -209,9 +207,9 @@ export default function CardDetailModal({
             </div>
             <div className={styles['commentArea']}>
               <CreateDoItYourselfComment
-                cardId={cardId}
-                columnId={cardDetail ? cardDetail.columnId : null}
-                dashboardId={cardDetail ? cardDetail.dashboardId : null}
+                cardId={cardDetail!.id}
+                columnId={cardDetail!.columnId}
+                dashboardId={cardDetail!.dashboardId}
                 getCommentList={getCommentList}
               />
               <div className={styles['commentListArea']}>
@@ -227,7 +225,10 @@ export default function CardDetailModal({
                           src={comment.author.profileImageUrl}
                         />
                       ) : (
-                        <img src="/assets/image/testProfile.png" />
+                        <img
+                          src="/assets/image/testProfile.png"
+                          alt="테스트 프로필 이미지"
+                        />
                       )}
 
                       <h1 className={styles['writerName']}>
