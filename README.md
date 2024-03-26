@@ -56,30 +56,48 @@
 
 ✈️ 최지희
 
-- 주요기능 적기
+- 대시보드 수정
+- 멤버 초대
+- 디자인 기획
 
 ✈️김범주
 
-- 주요기능 적기
+- 대시보드 생성 기능
+- 나의 대시보드 목록
+- 초대된 대시보드 목록
 
 ✈️박진아
 
-- 주요기능 적기
+- 로그인 페이지
+- 회원가입 페이지
+- 구글 로그인
+- 할 일 생성 모달
 
 ✈️ 백진영
 
-- 주요기능 적기
+- 할 일 카드 모달
+- 할 일 수정
+- 컬럼 추가 및 생성
 
 ✈️ 박지용
 
-- 계정관리 및 랜딩 페이지 구현
-- 공용 컴포넌트 (버튼) 구현
+- 계정관리 및 랜딩 페이지
+- 공용 컴포넌트 (버튼) 
 
   <br>
 
 ## 📺 주요 기능 시연
 
-- 기능 시연 동영상 들어갈 곳
+  
+- 대시보드 페이지
+- https://github.com/TravelScheduleService/BonVoyage/assets/133099388/58248fd5-ad12-449d-a907-07ed6cc87fdc
+
+- 프로필 변경
+ - https://github.com/TravelScheduleService/BonVoyage/assets/133099388/4c6a6a3a-2abd-4bfd-9f68-1550b29d74d7
+
+- 컬럼, 카드 생성
+ - https://github.com/TravelScheduleService/BonVoyage/assets/133099388/a150f26f-6ae4-440a-9875-ca74d05512f3
+
   <br>
 
 ## 🖥️ Dev Tools

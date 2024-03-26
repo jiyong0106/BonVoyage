@@ -10,6 +10,7 @@ import styles from '@/styles/editDashboard.module.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import leftArrowIcon from '/public/assets/icon/leftArrowIcon.svg';
+import { DashboardProvider } from '@/hooks/contexts';
 
 export default function EditDashboard() {
   const router = useRouter();
@@ -37,8 +38,12 @@ export default function EditDashboard() {
           돌아가기
         </button>
         <EditDashboardTitle />
-        <Members dashboardId={id} />
-        <InviteList dashboardId={id} />
+        {id && (
+          <DashboardProvider initialValue={id}>
+            <Members dashboardId={id} />
+            <InviteList dashboardId={id} />
+          </DashboardProvider>
+        )}
         <EventDashboardBtn
           name="대시보드 삭제하기"
           type="deleteDashboard"

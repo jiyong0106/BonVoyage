@@ -51,7 +51,7 @@ export default function ManagerDropDown({
 
   async function fetchMembers() {
     try {
-      const memberData = await getMemberList(dashboard?.id as number); // 멤버 목록 가져오기
+      const memberData = await getMemberList(dashboard); // 멤버 목록 가져오기
       setMembers(memberData.members);
     } catch (error) {
       console.error('Error fetching members:', error);

@@ -1,4 +1,4 @@
-import { CardDetail, Column, Dashboard } from '@/@types/type';
+import { CardDetail, Column, ID } from '@/@types/type';
 import { Dispatch, createContext, useContext } from 'react';
 import createStateContext from './createStateContext';
 
@@ -11,8 +11,7 @@ export const [useCardList, CardListProvider] = createStateContext<
 export const [useCardState, CardProvider] =
   createStateContext<CardDetail | null>(null);
 
-export const [useDashboardState, DashboardProvider] =
-  createStateContext<Dashboard | null>(null);
+export const [useDashboardState, DashboardProvider] = createStateContext<ID>(0);
 
 export const columnContext = createContext<ColumnListState>([
   undefined,
