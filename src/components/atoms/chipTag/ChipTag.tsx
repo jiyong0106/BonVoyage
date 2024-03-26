@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './chipTag.module.scss';
+import styles from './ChipTag.module.scss';
 import classNames from 'classnames/bind';
 
 const cn = classNames.bind(styles);
